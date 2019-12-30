@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "521408123297",
+    "firebase_url": "https://redrondo22.firebaseio.com",
+    "project_id": "redrondo22",
+    "storage_bucket": "redrondo22.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:521408123297:android:fefdf7440bf65a37d6bbe0",
+        "android_client_info": {
+          "package_name": "com.mertmuratkirmizi.redrondo22"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "521408123297-e2u611uoprd4lb40b2vcemkhqqlqhr60.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZX3iFT17wyK7AE-ZmkXIPXkM7LItq58U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "521408123297-e2u611uoprd4lb40b2vcemkhqqlqhr60.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
