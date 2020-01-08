@@ -20,7 +20,7 @@ class Lessonsmodel {
 
 
   toJson(){
-    return{
+    return {
       "lessonName":lesson_name,
       "solvedquesiton":solved_questions,
       "targetQuestionCount":target_question_count,

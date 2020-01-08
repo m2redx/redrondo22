@@ -42,7 +42,7 @@ class _home_pageState extends State<home_page> {
                     width: double.infinity,
                     height: 100.0,
                     child: ListView(//listwiev.builder yapısına bak onunla yaz item alacak//
-                      children: <Widget>[CircularSlider(),CircularSlider(),CircularSlider(),CircularSlider(),CircularSlider(),],
+                      children: <Widget>[CircularSlider(initialValue: 50, min: 0, max: 100), CircularSlider(initialValue: 10, min: 0, max: 100)],
                       scrollDirection: Axis.horizontal,
                     ),
                   ),
@@ -76,30 +76,26 @@ class _home_pageState extends State<home_page> {
 }
 
 class CircularSlider extends StatelessWidget {
-  final slider = SleekCircularSlider(
+  double initialValue;
+  double min;
+  double max;
 
-    min: 0,
-    max: 1000,
-    initialValue: 426,
-    onChange: (double value) {
-      // callback providing a value while its being changed (with a pan gesture)
-    },
-    onChangeStart: (double startValue) {
-      // callback providing a starting value (when a pan gesture starts)
-    },
-    onChangeEnd: (double endValue) {
-      // ucallback providing an ending value (when a pan gesture ends)
-    },
-    innerWidget: (double value) {
-      // use your custom widget inside the slider (gets a slider value from the callback)
-    },
-  );
+
+  CircularSlider({@required this.initialValue, @required this.min, @required this.max});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
         width: 100.0,
         height: 100.0,
-        child: slider);
+        child: slider());
+  }
+
+  Widget slider(){
+    return SleekCircularSlider(
+      min: min,
+      max: max,
+      initialValue: initialValue,
+    );
   }
 }

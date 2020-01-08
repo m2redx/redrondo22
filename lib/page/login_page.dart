@@ -21,33 +21,43 @@ class _LoginPageState extends State<LoginPage> {
         title: Text('Sign İn Page'),
       ),
       body: Form(
+        autovalidate: true,
         key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            TextFormField(
-              validator: (value) => value.isEmpty ? 'email cant be empty ':null,
-              onSaved: (input) => _email = input,
-              decoration: InputDecoration(
-                  labelText: 'Email'
-              ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ListView(
+            padding: EdgeInsets.symmetric(horizontal: 15.0),
+            children: <Widget>[
+              TextFormField(
 
-            ),
-            TextFormField(
-              validator: (value) =>value.isEmpty ? 'passsword canr be empty':null,
-              onSaved: (input) => _password = input,
-              decoration: InputDecoration(
-                  labelText: 'password'
-              ),
-              obscureText: true,
+                validator: (value) => value.isEmpty ? 'email cant be empty ':null,
+                onSaved: (input) => _email = input,
+                decoration: InputDecoration(
+                 icon: Icon(
+                   Icons.email
+                 ),
+                    labelText: 'Email'
+                ),
 
-            ),
-            RaisedButton(
-              onPressed: signIn,
-              child: Text('SIGN IN'),
-            )
-          ],
+              ),
+              TextFormField(
+                validator: (value) =>value.isEmpty ? 'passsword canr be empty':null,
+                onSaved: (input) => _password = input,
+                decoration: InputDecoration(
+                  icon: Icon(
+                    Icons.vpn_key
+                  ),
+                    labelText: 'password'
+                ),
+                obscureText: true,
+
+              ),
+              RaisedButton(
+                onPressed: signIn,
+                child: Text('SIGN IN'),
+              )
+            ],
+          ),
         ),
       ),
     );

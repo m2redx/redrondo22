@@ -1,3 +1,5 @@
+import 'package:redrondo22/page/lessonadd_page.dart';
+import 'package:redrondo22/page/multiform.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
 
@@ -19,10 +21,18 @@ class _lessonsState extends State<lessons> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
+        child: Icon(
+          Icons.add,
+              color: Colors.white,
+        ),
+
+        onPressed: LessonsAdd,
+      ),
       body: Column(
         children: <Widget>[
           buildCalendarWidget(),
-
           //Reusablacard koy
         ],
       ),
@@ -39,5 +49,8 @@ class _lessonsState extends State<lessons> {
 
 
     );
+  }
+  void LessonsAdd(){
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>Multiform(), fullscreenDialog: true));
   }
 }
