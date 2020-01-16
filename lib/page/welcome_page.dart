@@ -27,16 +27,61 @@ class _WelcomePageState extends State<WelcomePage> {
         title: Text('Welcome Page') ,
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          RaisedButton(
-            onPressed: navigateToSignIn,
-            child: Text('Sign In'),
+          Container(
+            margin: EdgeInsets.all(5),
+            width: 200.0,
+            height: 260.0,
+            decoration: BoxDecoration(
+                color: Colors.black,
+                image: DecorationImage(
+                    image: AssetImage('assets/uygulamatanıtım.jpg'),
+                    fit: BoxFit.cover),
+
+               ),
           ),
-          RaisedButton(
-            onPressed: navigateToSignUp,
-            child: Text('Sign Up'),
+          Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Container(
+              
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: Colors.black,
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(75.0)),
+                  boxShadow: [
+                  BoxShadow(blurRadius: 7.0, color: Colors.black)
+             ] ),
+              child: RaisedButton(
+
+                onPressed: navigateToSignIn,
+                child: Text('Sign In'),
+              ),
+            ),
+          ),
+
+
+          Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(75.0)),
+                  boxShadow: [
+                    BoxShadow(blurRadius: 7.0, color: Colors.black)
+                  ] ),
+
+              child: RaisedButton(
+                onPressed: navigateToSignUp,
+                child: Text('Sign Up'),
+              ),
+            ),
           )
         ],
       ),

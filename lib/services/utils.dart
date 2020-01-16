@@ -50,4 +50,22 @@ class DatabaseUtils{
     }
     return null;
   }
+  Future<List<Lessonsmodel>> getDailyLessonsWithParam(String dayPath) async {
+    List<Lessonsmodel> lessonModelList = new List();
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    String todayLessonDate = dayPath;
+    DataSnapshot snapshot = await FirebaseCrud().readData(Constants.refMyLessons + '/' + user.uid + '/' + todayLessonDate);
+    Map<dynamic,dynamic> mapData = snapshot.value;
+    if(mapData != null){
+      mapData.forEach((key,value){
+        print(key); // PushKey
+        print(value); //
+        Lessonsmodel lessonsmodel = new Lessonsmodel.dynamicval(value);
+        lessonModelList.add(lessonsmodel);
+      });
+      return lessonModelList;
+    }
+    return null;
+  }
+
 }

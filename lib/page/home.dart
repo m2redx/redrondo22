@@ -44,7 +44,7 @@ class _home_pageState extends State<home_page> {
           children: <Widget>[
             SizedBox(
               width: 100.0,
-              height: 250.0,
+              height: 100.0,
               child: ReusableCard(
                 cardChild: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,18 +60,7 @@ class _home_pageState extends State<home_page> {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Container(
-                      width: double.infinity,
-                      height: 100.0,
-                      child: ListView(
-                        //listwiev.builder yapısına bak onunla yaz item alacak//
-                        children: <Widget>[
-                          CircularSlider(initialValue: 50, min: 0, max: 100),
-                          CircularSlider(initialValue: 10, min: 0, max: 100)
-                        ],
-                        scrollDirection: Axis.horizontal,
-                      ),
-                    ),
+
                   ],
                 ),
               ),
@@ -115,7 +104,7 @@ class _home_pageState extends State<home_page> {
                         leading: Icon(
                           Icons.book,
                         ),
-                        title: Text('Lessons Box'),
+                        title: Text('Ders'),
                         centerTitle: true,
                         actions: <Widget>[
                           IconButton(
@@ -156,13 +145,13 @@ class _home_pageState extends State<home_page> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
-                                  child: Text('Konu ADı'),
+                                  child: Text('Konu Adı'),
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
-                                  child: Text('Çözülen Soru Sayısı'),
+                                  child: Text('Kaç Soru Çözdün'),
                                 ),
                               ),
                               Padding(
@@ -197,15 +186,34 @@ class _home_pageState extends State<home_page> {
 
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
-                                  width: 5.0,
+                                  width: 30.0,
                                   child: TextField(
 
                                     keyboardType: TextInputType.number,
-                                    onSubmitted: (input) {
+                                    onSubmitted: (input) async {
                                       _solved_question_count = input;
                                       String todayLessonDate =
                                           DatabaseUtils().getTodayToString();
+                                      DataSnapshot dataSnapshot = await FirebaseCrud().readData(Constants.refMyLessons +
+                                              '/' +
+                                              user.uid +
+                                              '/' +
+                                              todayLessonDate +
+                                              '/' +
+                                              dailyLesson[index].id +
+                                              '/' +
+                                              'solvedquesiton');
+                                      int currentVal = dataSnapshot.value;
+                                      if(currentVal != null){
+                                        if(input != null){
+                                          currentVal +=  int.parse(input);
 
+                                        }
+                                      }else{
+
+                                        currentVal = 0;
+                                        currentVal = int.parse(input);
+                                      }
                                       FirebaseCrud().writeData(
                                           Constants.refMyLessons +
                                               '/' +
@@ -216,7 +224,7 @@ class _home_pageState extends State<home_page> {
                                               dailyLesson[index].id +
                                               '/' +
                                               'solvedquesiton',
-                                          int.parse(input));
+                                          currentVal);
                                     },
                                     // Text(dailyLesson[index].solved_questions.toString()), Veriyi burası çekiyor
                                   ),

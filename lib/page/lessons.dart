@@ -8,6 +8,7 @@ import 'package:redrondo22/services/utils.dart';
 import 'package:redrondo22/widgets/loading.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class lessons extends StatefulWidget {
@@ -18,9 +19,10 @@ class lessons extends StatefulWidget {
 class _lessonsState extends State<lessons> {
   CalendarController _calendarController;
   FirebaseUser user;
-
+  String dayPath;
   @override
   void initState() {
+    dayPath = DatabaseUtils().getTodayToString();
     super.initState();
     _calendarController = CalendarController();
   }
@@ -51,7 +53,7 @@ class _lessonsState extends State<lessons> {
   }
   Widget _lessonAddPageCardWidget() {
     return FutureBuilder(
-      future: DatabaseUtils().getDailyLessons(),
+      future: DatabaseUtils().getDailyLessonsWithParam(dayPath),
       builder: (context, AsyncSnapshot<List<Lessonsmodel>> snapshot) {
         if(snapshot.connectionState == ConnectionState.waiting){
           return Container(child: Center(child: LoadingWidget().getLoadingWidget()),);
@@ -78,7 +80,7 @@ class _lessonsState extends State<lessons> {
                         leading: Icon(
                           Icons.book,
                         ),
-                        title: Text('Lessons Box'),
+                        title: Text('Ders'),
                         centerTitle: true,
                         actions: <Widget>[
                           IconButton(
@@ -180,6 +182,50 @@ class _lessonsState extends State<lessons> {
   SizedBox buildCalendarWidget() {
     return SizedBox( //takvimi belirli bir şeyin içine al
       child: TableCalendar(
+        calendarStyle:  CalendarStyle(
+          todayColor: Colors.blueAccent,
+              selectedColor: Theme.of(context).primaryColor,
+            todayStyle: TextStyle(
+              fontWeight: FontWeight.bold,
+                  color: Colors.white
+            )
+        ),
+        headerStyle: HeaderStyle(
+          centerHeaderTitle: true,
+          formatButtonDecoration: BoxDecoration(
+            color: Colors.black38,
+            borderRadius: BorderRadius.circular(20.0)
+          ),
+          formatButtonTextStyle: TextStyle(
+            color: Colors.white
+          ),
+          formatButtonShowsNext: false,
+        ),
+           startingDayOfWeek: StartingDayOfWeek.monday,
+        onDaySelected: (date,events){
+          String dateSelected = date.day.toString() + '-' + date.month.toString() + '-' + date.year.toString();
+          getSelectedLesson(dateSelected);
+          print(dateSelected);
+        },
+        builders: CalendarBuilders(
+          todayDayBuilder: (context,date,events)=>
+              Container(
+                alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(10.0)
+              ),
+              child: Text(date.day.toString())),
+          selectedDayBuilder: (context,date,events)=>
+              Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      color: Colors.yellowAccent,
+                      borderRadius: BorderRadius.circular(10.0)
+                  ),
+                  child: Text(date.day.toString())),
+        ),
+
         calendarController:_calendarController,
         rowHeight: 35.0,
       ),
@@ -189,5 +235,12 @@ class _lessonsState extends State<lessons> {
   }
   void LessonsAdd(){
     Navigator.push(context, MaterialPageRoute(builder: (context)=>Multiform(), fullscreenDialog: true));
+  }
+
+  void getSelectedLesson(String day) {
+    dayPath = day;
+    setState(() {
+
+    });
   }
 }

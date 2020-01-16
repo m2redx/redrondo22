@@ -45,14 +45,13 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
         primarySwatch: Colors.red,
       ),
       home: Scaffold(
-        appBar: SearchBar( /* buraya sonra sorgu yazacaksı */
-          defaultBar: AppBar(
-            backgroundColor: Colors.grey,
-            leading: IconButton(
-              icon: Icon(Icons.menu),
-
-            ),
+        appBar: AppBar( /* buraya sonra sorgu yazacaksı */
+          backgroundColor: Colors.black54,
+          centerTitle: true,
+          title: Text(
+            'Redrondo İle Dersini Takip Et'
           ),
+
         ),
         //body: _pageOptions[_selectedPage] ,
         body: TabBarView(
@@ -75,7 +74,7 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
 
                 icon: Icon(Icons.home),
                 backgroundColor:  Color(0xFF1D1E33),
-                title: Text('Home')
+                title: Text('Anasayfa')
             ),
             BottomNavigationBarItem(
                 backgroundColor: Color(0xFF1D1E33),
