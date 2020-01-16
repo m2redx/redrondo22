@@ -233,7 +233,7 @@ class _home_pageState extends State<home_page> {
                             ],
                           ),
                           SizedBox(
-                            width: 8.0,
+                            width: 9.0,
                           )
                         ],
                       )
