@@ -16,7 +16,7 @@ class Multiform extends StatefulWidget {
 class _MultiformState extends State<Multiform> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   List<Lessonsmodel> lessons = [];
-
+  int itemSize = 0;
   bool isVisibleSaveButton = false;
 
   @override
@@ -26,7 +26,7 @@ class _MultiformState extends State<Multiform> {
       appBar: AppBar(
         title: Text('Lessons Add Box'),
       ),
-      body: lessons.length <= 0
+      body: itemSize == 0
           ? Center(
               child: Text('ders eklemek için tıklayın'),
             )
@@ -58,24 +58,24 @@ class _MultiformState extends State<Multiform> {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
     DateTime now = DateTime.now();
     for(Lessonsmodel lessonsmodel in lessons){
-      FirebaseCrud().writeDataWithPush(path:Constants.refMyLessons + '/' + user.uid + '/' + (now.day.toString() + '-' + now.month.toString() + '-' + now.year.toString()),data: lessonsmodel.toJson());
+      String key = FirebaseCrud().getPushKey();
+      lessonsmodel.id = key;
+      print(lessonsmodel.id);
+      FirebaseCrud().writeData(Constants.refMyLessons + '/' + user.uid + '/' + (now.day.toString() + '-' + now.month.toString() + '-' + now.year.toString() + '/' + key),lessonsmodel.toJson());
     }
     Navigator.pop(context);
   }
   void onDelete(int index) {
     setState(() {
+      itemSize--;
+      if(lessons.length > 0)
       lessons.removeAt(index);
     });
   }
 
   void onAddLesson() {
     setState(() {
-      lessons.add(Lessonsmodel('Murat', 5, 0, 'Sayılar'));
-      if (lessons.length > 0)
-        isVisibleSaveButton = true;
-      else {
-        isVisibleSaveButton = false;
-      }
+      itemSize++;
     });
   }
 
@@ -88,16 +88,21 @@ class _MultiformState extends State<Multiform> {
             if(snapshot.data != null){
               Map<String,List<SubjectModel>> allLessons = _getAllLessonWithSubjects(snapshot.data.value);
               return ListView.builder(
-                itemCount: lessons.length,
+                itemCount: itemSize,
                 itemBuilder: (_, i){
                   return LessonAddPage(
-
-                    lesson_name: lessons[i],
                     onDelete: () => onDelete(i),
                     allLessons: allLessons,
                     onSaved: (Lessonsmodel onSaved){
                       print('Eklendi' + i.toString());
-                      lessons[i] = onSaved;
+                      lessons.add(onSaved);
+                      setState(() {
+                        if (lessons.length > 0)
+                          isVisibleSaveButton = true;
+                        else {
+                          isVisibleSaveButton = false;
+                        }
+                      });
                     },
                   );
                 }

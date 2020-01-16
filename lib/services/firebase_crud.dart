@@ -13,8 +13,12 @@ class FirebaseCrud{
     myRef.child(path).set(data);
   }
 
-  writeDataWithPush(String path,dynamic data){
+  writeDataWithPush({String path,dynamic data}){
     myRef.child(path).push().set(data);
+  }
+
+  getPushKey(){
+    return myRef.push().key;
   }
 
   Future<DataSnapshot> readData(String path) async{

@@ -9,14 +9,13 @@ typedef Ondelete();
 class LessonAddPage extends StatefulWidget {
   final ValueChanged<Lessonsmodel> onSaved;
 
-  final Lessonsmodel lesson_name;
   final Map<String, List<SubjectModel>> allLessons;
 
   // final state = _UserFormState();
   final Ondelete onDelete;
   Key key;
   LessonAddPage(
-      {this.lesson_name, this.onDelete, this.allLessons, this.onSaved,this.key});
+      {this.onDelete, this.allLessons, this.onSaved,this.key});
 
   @override
   _LessonAddPageState createState() => _LessonAddPageState();
@@ -137,6 +136,7 @@ class _LessonAddPageState extends State<LessonAddPage> {
                   _controlData();
                 },
                 decoration: InputDecoration(
+
                     icon: Icon(
                         FontAwesomeIcons.bullseye
                     ),
@@ -154,8 +154,7 @@ class _LessonAddPageState extends State<LessonAddPage> {
   _controlData() {
     if (selectedLesson != null && selectedSubjectType != null &&
         target_question_count != null) {
-      Lessonsmodel lessonsmodel = new Lessonsmodel(
-          selectedLesson, int.parse(target_question_count), 0, selectedSubjectType);
+      Lessonsmodel lessonsmodel = new Lessonsmodel(selectedLesson, int.parse(target_question_count), 0, selectedSubjectType,null);
       widget.onSaved(lessonsmodel);
     }
   }

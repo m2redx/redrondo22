@@ -4,10 +4,11 @@ class Lessonsmodel {
   // ignore: non_constant_identifier_names
   int target_question_count ;
   int solved_questions;
+  String id;
 //  double question_percent = (solved_questions/target_question_count)*100;
 
 
-  Lessonsmodel(this.lesson_name,this.target_question_count,this.solved_questions,this.subject);
+  Lessonsmodel(this.lesson_name,this.target_question_count,this.solved_questions,this.subject,this.id);
   Lessonsmodel.empty();
 
   Lessonsmodel.dynamicval(dynamic v){
@@ -16,6 +17,7 @@ class Lessonsmodel {
     this.target_question_count=v['targetQuestionCount'];
     //this.question_percent=v['questionpercent'];
     this.subject=v['Subject'];
+    this.id=v['id'];
   }
 
 
@@ -25,8 +27,11 @@ class Lessonsmodel {
       "solvedquesiton":solved_questions,
       "targetQuestionCount":target_question_count,
       "Subject":subject,
+      "id":id,
     };
   }
+
+
   String get lessonName => lesson_name;
   set lessonName(String value){
     lesson_name=value;
